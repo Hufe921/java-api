@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("select new com.hufe.frame.bean.dto.user.UserOrderDTO(o.id,o.name,o.state)"
             + " from OrderEntity o"
-            + " where o.user = :userId"
+            + " where o.user.id = :userId"
             + " order by id DESC")
     List<UserOrderDTO> getOrderListByUserId(@Param("userId") Long userId);
 

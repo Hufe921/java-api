@@ -1,15 +1,14 @@
 package com.hufe.frame.bean.vo.common;
 
-import com.hufe.frame.bean.vo.user.UserShowVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class FrameResponse<T> {
 
     private T data;
