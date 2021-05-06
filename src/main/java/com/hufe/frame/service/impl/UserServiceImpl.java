@@ -1,4 +1,4 @@
-package com.hufe.frame.serviceImpl;
+package com.hufe.frame.service.impl;
 
 import com.hufe.frame.bean.dto.user.UserOrderDTO;
 import com.hufe.frame.bean.vo.user.UserOrderShowVO;

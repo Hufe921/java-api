@@ -1,4 +1,4 @@
-package com.hufe.frame.serviceImpl;
+package com.hufe.frame.service.impl;
 
 import com.hufe.frame.bean.ao.order.CreateOrderAO;
 import com.hufe.frame.bean.vo.order.OrderShowVO;

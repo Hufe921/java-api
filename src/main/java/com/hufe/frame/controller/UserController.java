@@ -5,7 +5,7 @@ import com.hufe.frame.bean.po.exception.InterErrorException;
 import com.hufe.frame.bean.vo.common.FrameResponse;
 import com.hufe.frame.bean.vo.user.UserOrderShowVO;
 import com.hufe.frame.bean.vo.user.UserShowVO;
-import com.hufe.frame.serviceImpl.UserServiceImpl;
+import com.hufe.frame.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

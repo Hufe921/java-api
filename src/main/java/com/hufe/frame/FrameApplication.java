@@ -1,6 +1,7 @@
 package com.hufe.frame;
 
 import com.hufe.frame.aop.FrameInterceptor;
+import com.hufe.frame.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,7 @@ public class FrameApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(FrameApplication.class, args);
-        log.info("frame start on http://localhost:18080");
+        log.info("frame start on http://localhost:18080,version: " + CommonConstant.FRAME_VERSION);
     }
 
     @Override
