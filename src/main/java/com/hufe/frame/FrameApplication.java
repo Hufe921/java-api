@@ -17,6 +17,8 @@ import java.util.TimeZone;
 public class FrameApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
+        // apollo配置
+        // System.setProperty("apollo.configService", "http://config-service-url:port");
         SpringApplication.run(FrameApplication.class, args);
         log.info("frame start on http://localhost:18080,version: " + CommonConstant.FRAME_VERSION);
     }
