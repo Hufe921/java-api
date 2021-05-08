@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<OrderShowVO> findAll() {
@@ -53,7 +58,10 @@ public class OrderServiceImpl implements OrderService {
                     .state(OrderState.INIT)
                     .build();
         }).collect(Collectors.toList());
-        orderRepository.saveAll(orderEntityList);
+        // 批量插入-减少SELECT
+        orderEntityList.forEach(entityManager::persist);
+        entityManager.flush();
+        entityManager.clear();
         return true;
     }
 
