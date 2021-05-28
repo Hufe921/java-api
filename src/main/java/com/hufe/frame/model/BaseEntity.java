@@ -22,7 +22,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "BIT default 1")
+    @Column(columnDefinition = "tinyint default 1")
     private Boolean isActive = true;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -35,6 +35,6 @@ public class BaseEntity {
     private Date updateTime;
 
     @Version
-    private int version;
+    private Integer version;
 
 }

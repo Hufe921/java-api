@@ -1,7 +1,8 @@
 package com.hufe.frame.service.impl;
 
-import com.hufe.frame.bean.ao.order.CreateOrderAO;
-import com.hufe.frame.bean.vo.order.OrderShowVO;
+import com.hufe.frame.dataobject.ao.order.CreateOrderAO;
+import com.hufe.frame.dataobject.po.exception.FrameMessageException;
+import com.hufe.frame.dataobject.vo.order.OrderShowVO;
 import com.hufe.frame.model.OrderEntity;
 import com.hufe.frame.model.OrderState;
 import com.hufe.frame.model.UserEntity;
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderShowVO> findAll() {
         List<OrderEntity> orderEntities = orderRepository.findAll();
-        List<OrderShowVO> result = null;
+        List<OrderShowVO> result = Collections.emptyList();
         if (orderEntities != null) {
             result = orderEntities.stream().map(u ->
                     OrderShowVO.builder()
@@ -47,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public boolean createOrder(ArrayList<CreateOrderAO> orderList) {
         if (orderList.isEmpty()) {
-            return false;
+            throw new FrameMessageException("订单列表不能为空");
         }
         List<OrderEntity> orderEntityList = orderList.stream().map(o -> {
             UserEntity userEntity = new UserEntity();

@@ -1,4 +1,4 @@
-package com.hufe.frame.bean.po.exception;
+package com.hufe.frame.dataobject.po.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

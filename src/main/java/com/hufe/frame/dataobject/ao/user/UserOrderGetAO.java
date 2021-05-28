@@ -1,4 +1,4 @@
-package com.hufe.frame.bean.ao.user;
+package com.hufe.frame.dataobject.ao.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

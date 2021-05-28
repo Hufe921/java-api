@@ -1,7 +1,7 @@
 package com.hufe.frame.service;
 
-import com.hufe.frame.bean.vo.user.UserOrderShowVO;
-import com.hufe.frame.bean.vo.user.UserShowVO;
+import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
+import com.hufe.frame.dataobject.vo.user.UserShowVO;
 
 import java.util.List;
 

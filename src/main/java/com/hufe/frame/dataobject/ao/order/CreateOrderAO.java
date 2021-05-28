@@ -1,4 +1,4 @@
-package com.hufe.frame.bean.ao.order;
+package com.hufe.frame.dataobject.ao.order;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

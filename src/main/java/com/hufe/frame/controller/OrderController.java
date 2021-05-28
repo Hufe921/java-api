@@ -1,9 +1,8 @@
 package com.hufe.frame.controller;
 
-import com.hufe.frame.bean.ao.order.CreateOrderAO;
-import com.hufe.frame.bean.po.exception.InterErrorException;
-import com.hufe.frame.bean.vo.common.FrameResponse;
-import com.hufe.frame.bean.vo.order.OrderShowVO;
+import com.hufe.frame.dataobject.ao.order.CreateOrderAO;
+import com.hufe.frame.dataobject.vo.common.FrameResponse;
+import com.hufe.frame.dataobject.vo.order.OrderShowVO;
 import com.hufe.frame.service.impl.OrderServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,12 +35,8 @@ public class OrderController {
     @PostMapping("/v1/get")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse<List<OrderShowVO>> findAll() {
-        try {
-            List<OrderShowVO> result = orderService.findAll();
-            return new FrameResponse<>(result);
-        } catch (Exception e) {
-            throw new InterErrorException(e);
-        }
+        List<OrderShowVO> result = orderService.findAll();
+        return new FrameResponse<>(result);
     }
 
     @ApiOperation(value = "创建订单")
@@ -53,12 +48,8 @@ public class OrderController {
     @PostMapping("/v1/create")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse createOrder(@RequestBody @Valid ArrayList<CreateOrderAO> inputAO) {
-        try {
-            orderService.createOrder(inputAO);
-            return new FrameResponse();
-        } catch (Exception e) {
-            throw new InterErrorException(e);
-        }
+        orderService.createOrder(inputAO);
+        return new FrameResponse();
     }
 
 }

@@ -1,13 +1,18 @@
-package com.hufe.frame.bean.vo.order;
+package com.hufe.frame.dataobject.dto.user;
 
 import com.hufe.frame.model.OrderState;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
 @Builder
-public class OrderShowVO {
+public class UserOrderDTO {
+
+    @ApiModelProperty(value = "订单id")
+    private Long id;
 
     @ApiModelProperty(value = "订单名称")
     private String name;

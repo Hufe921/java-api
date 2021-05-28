@@ -1,10 +1,9 @@
 package com.hufe.frame.controller;
 
-import com.hufe.frame.bean.ao.user.UserOrderGetAO;
-import com.hufe.frame.bean.po.exception.InterErrorException;
-import com.hufe.frame.bean.vo.common.FrameResponse;
-import com.hufe.frame.bean.vo.user.UserOrderShowVO;
-import com.hufe.frame.bean.vo.user.UserShowVO;
+import com.hufe.frame.dataobject.ao.user.UserOrderGetAO;
+import com.hufe.frame.dataobject.vo.common.FrameResponse;
+import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
+import com.hufe.frame.dataobject.vo.user.UserShowVO;
 import com.hufe.frame.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,12 +34,8 @@ public class UserController {
     @PostMapping("/v1/get")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse<List<UserShowVO>> findAll() {
-        try {
-            List<UserShowVO> result = userService.findAll();
-            return new FrameResponse<>(result);
-        } catch (Exception e) {
-            throw new InterErrorException(e);
-        }
+        List<UserShowVO> result = userService.findAll();
+        return new FrameResponse<>(result);
     }
 
     @ApiOperation(value = "获取用户所有订单信息")
@@ -52,12 +47,8 @@ public class UserController {
     @PostMapping("/v1/order_list/get")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse<UserOrderShowVO> getOrderListByUserId(@RequestBody @Validated UserOrderGetAO inputAO) {
-        try {
-            UserOrderShowVO result = userService.getOrderListByUserId(inputAO.getUserId());
-            return new FrameResponse<>(result);
-        } catch (Exception e) {
-            throw new InterErrorException(e);
-        }
+        UserOrderShowVO result = userService.getOrderListByUserId(inputAO.getUserId());
+        return new FrameResponse<>(result);
     }
 
 }

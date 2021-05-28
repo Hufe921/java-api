@@ -1,4 +1,4 @@
-package com.hufe.frame.bean.vo.common;
+package com.hufe.frame.dataobject.vo.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FrameResponse<T> {
 
-    private T data;
+    private T data = null;
 
     private String errorDetail = null;
 

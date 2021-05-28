@@ -1,8 +1,9 @@
 package com.hufe.frame.aop;
 
-import com.hufe.frame.bean.po.exception.FrameValidationException;
-import com.hufe.frame.bean.po.exception.InterErrorException;
-import com.hufe.frame.bean.vo.common.FrameResponse;
+import com.hufe.frame.dataobject.po.exception.FrameMessageException;
+import com.hufe.frame.dataobject.po.exception.FrameValidationException;
+import com.hufe.frame.dataobject.po.exception.InterErrorException;
+import com.hufe.frame.dataobject.vo.common.FrameResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,15 @@ import javax.validation.ValidationException;
 
 @RestControllerAdvice
 public class FrameControllerAdvice {
+
+    @ExceptionHandler({FrameMessageException.class})
+    @ResponseStatus(HttpStatus.OK)
+    public FrameResponse frameMessageExceptionHandler(FrameMessageException exception) {
+        return FrameResponse.builder()
+                .success(false)
+                .errorDetail(exception.toString())
+                .build();
+    }
 
     @ExceptionHandler({BindException.class, ValidationException.class})
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
