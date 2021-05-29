@@ -9,6 +9,7 @@ import com.hufe.frame.model.UserEntity;
 import com.hufe.frame.repository.OrderRepository;
 import com.hufe.frame.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private MapperFactory mapperFactory;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -33,16 +36,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderShowVO> findAll() {
         List<OrderEntity> orderEntities = orderRepository.findAll();
-        List<OrderShowVO> result = Collections.emptyList();
-        if (orderEntities != null) {
-            result = orderEntities.stream().map(u ->
-                    OrderShowVO.builder()
-                            .name(u.getName())
-                            .state(u.getState())
-                            .build()
-            ).collect(Collectors.toList());
-        }
-        return result;
+        return mapperFactory.getMapperFacade()
+                .mapAsList(orderEntities, OrderShowVO.class);
     }
 
     @Override
