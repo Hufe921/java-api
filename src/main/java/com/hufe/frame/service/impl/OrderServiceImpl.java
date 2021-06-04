@@ -11,6 +11,7 @@ import com.hufe.frame.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -35,6 +36,7 @@ public class OrderServiceImpl implements OrderService {
     private EntityManager entityManager;
 
     @Override
+    @Async("asyncExecutor")
     public CompletableFuture<List<OrderShowVO>> findAll() {
         List<OrderEntity> orderEntities = orderRepository.findAll();
         return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
