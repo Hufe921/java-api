@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Api(tags = "订单")
 @Validated
@@ -35,8 +36,8 @@ public class OrderController {
     @PostMapping("/v1/get")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse<List<OrderShowVO>> findAll() {
-        List<OrderShowVO> result = orderService.findAll();
-        return new FrameResponse<>(result);
+        CompletableFuture<List<OrderShowVO>> result = orderService.findAll();
+        return new FrameResponse<>(result.join());
     }
 
     @ApiOperation(value = "创建订单")

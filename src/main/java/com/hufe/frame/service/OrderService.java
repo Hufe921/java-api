@@ -5,10 +5,11 @@ import com.hufe.frame.dataobject.vo.order.OrderShowVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface OrderService {
 
-    List<OrderShowVO> findAll();
+    CompletableFuture<List<OrderShowVO>> findAll();
 
     boolean createOrder(ArrayList<CreateOrderAO> orderList);
 

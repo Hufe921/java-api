@@ -10,13 +10,17 @@ import com.hufe.frame.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
+@EnableAsync(proxyTargetClass = true)
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -26,10 +30,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<UserShowVO> findAll() {
+    @Async("asyncExecutor")
+    public CompletableFuture<List<UserShowVO>> findAll() {
         List<UserEntity> userEntities = userRepository.findAll();
-        return mapperFactory.getMapperFacade()
-                .mapAsList(userEntities, UserShowVO.class);
+        return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
+                .mapAsList(userEntities, UserShowVO.class));
     }
 
     @Override

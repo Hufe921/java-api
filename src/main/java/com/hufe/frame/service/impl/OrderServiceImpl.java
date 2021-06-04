@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,10 +35,10 @@ public class OrderServiceImpl implements OrderService {
     private EntityManager entityManager;
 
     @Override
-    public List<OrderShowVO> findAll() {
+    public CompletableFuture<List<OrderShowVO>> findAll() {
         List<OrderEntity> orderEntities = orderRepository.findAll();
-        return mapperFactory.getMapperFacade()
-                .mapAsList(orderEntities, OrderShowVO.class);
+        return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
+                .mapAsList(orderEntities, OrderShowVO.class));
     }
 
     @Override

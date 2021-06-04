@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Api(tags = "用户")
 @Validated
@@ -34,8 +35,8 @@ public class UserController {
     @PostMapping("/v1/get")
     @ResponseStatus(HttpStatus.OK)
     public FrameResponse<List<UserShowVO>> findAll() {
-        List<UserShowVO> result = userService.findAll();
-        return new FrameResponse<>(result);
+        CompletableFuture<List<UserShowVO>> result = userService.findAll();
+        return new FrameResponse<>(result.join());
     }
 
     @ApiOperation(value = "获取用户所有订单信息")
