@@ -3,6 +3,7 @@ package com.hufe.frame;
 import com.hufe.frame.aop.FrameInterceptor;
 import com.hufe.frame.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @Slf4j
+@MapperScan("com.hufe.frame.mapper")
 public class FrameApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {

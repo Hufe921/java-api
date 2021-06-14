@@ -4,6 +4,7 @@ import com.hufe.frame.dataobject.dto.user.UserOrderDTO;
 import com.hufe.frame.dataobject.po.exception.FrameMessageException;
 import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
 import com.hufe.frame.dataobject.vo.user.UserShowVO;
+import com.hufe.frame.mapper.UserMapper;
 import com.hufe.frame.model.UserEntity;
 import com.hufe.frame.repository.UserRepository;
 import com.hufe.frame.service.UserService;
@@ -27,10 +28,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     @Async("asyncExecutor")
     public CompletableFuture<List<UserShowVO>> findAll() {
-        List<UserEntity> userEntities = userRepository.findAll();
+
+        List<UserEntity> userEntities = userMapper.selectList(null);
         return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
                 .mapAsList(userEntities, UserShowVO.class));
     }

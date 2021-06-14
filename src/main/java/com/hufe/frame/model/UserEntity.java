@@ -1,16 +1,16 @@
 package com.hufe.frame.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@TableName("users")
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = true)

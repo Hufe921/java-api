@@ -1,12 +1,13 @@
 package com.hufe.frame.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "orders")
+@TableName("orders")
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = true)
