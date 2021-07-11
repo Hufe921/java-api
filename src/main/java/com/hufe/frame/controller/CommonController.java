@@ -24,28 +24,28 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/common")
 public class CommonController {
 
-    @Autowired
-    private UserServiceImpl userService;
+  @Autowired
+  private UserServiceImpl userService;
 
-    @Autowired
-    private OrderServiceImpl orderService;
+  @Autowired
+  private OrderServiceImpl orderService;
 
-    @ApiOperation(value = "异步并发获取用户和订单信息")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "非法访问"),
-            @ApiResponse(code = 422, message = "参数验证失败"),
-            @ApiResponse(code = 500, message = "内部服务错误")
-    })
-    @PostMapping("/v1/user_order/get")
-    @ResponseStatus(HttpStatus.OK)
-    public FrameResponse<UserAndOrderShowVO> asyncFindUserAndOrderAll() {
-        CompletableFuture<List<UserShowVO>> userFuture = userService.findAll();
-        CompletableFuture<List<OrderShowVO>> orderFuture = orderService.findAll();
-        CompletableFuture.allOf(userFuture, orderFuture).join();
-        return new FrameResponse<>(UserAndOrderShowVO.builder()
-                .orderShowList(orderFuture.join())
-                .userShowList(userFuture.join())
-                .build());
-    }
+  @ApiOperation(value = "异步并发获取用户和订单信息")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/user_order/get")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse<UserAndOrderShowVO> asyncFindUserAndOrderAll() {
+    CompletableFuture<List<UserShowVO>> userFuture = userService.findAll();
+    CompletableFuture<List<OrderShowVO>> orderFuture = orderService.findAll();
+    CompletableFuture.allOf(userFuture, orderFuture).join();
+    return new FrameResponse<>(UserAndOrderShowVO.builder()
+            .orderShowList(orderFuture.join())
+            .userShowList(userFuture.join())
+            .build());
+  }
 
 }

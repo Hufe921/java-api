@@ -8,14 +8,14 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
-public class CreateOrderAO {
+public class UpdateOrderAO {
+
+  @ApiModelProperty(value = "订单id", required = true)
+  @NotNull
+  private Long id;
 
   @ApiModelProperty(value = "订单名称", required = true)
   @NotNull
   private String name;
-
-  @ApiModelProperty(value = "用户id", required = true)
-  @NotNull
-  private Long userId;
 
 }

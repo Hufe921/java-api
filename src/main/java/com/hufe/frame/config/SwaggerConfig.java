@@ -13,18 +13,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableSwagger2WebMvc
 public class SwaggerConfig {
 
-    @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .pathMapping("/")
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hufe.frame.controller"))
-                .paths(PathSelectors.any())
-                .build().apiInfo(new ApiInfoBuilder()
-                        .title("frame")
-                        .description("this is a simple crud frame by java")
-                        .version("1.0")
-                        .build());
-    }
+  @Bean
+  public Docket createRestApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+            .pathMapping("/")
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.hufe.frame.controller"))
+            .paths(PathSelectors.any())
+            .build().apiInfo(new ApiInfoBuilder()
+                    .title("frame")
+                    .description("this is a simple crud frame by java")
+                    .version("1.0")
+                    .build());
+  }
 
 }

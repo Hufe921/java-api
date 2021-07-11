@@ -8,6 +8,6 @@ import org.springframework.validation.BindingResult;
 @Getter
 public class FrameValidationException extends RuntimeException {
 
-    private BindingResult result;
+  private BindingResult result;
 
 }

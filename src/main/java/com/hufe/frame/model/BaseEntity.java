@@ -1,40 +1,30 @@
 package com.hufe.frame.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@MappedSuperclass
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicInsert
-@DynamicUpdate
-@Where(clause = "is_active = true")
 public class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @TableId(value = "id", type = IdType.AUTO)
+  private Long id;
 
-    @Column(columnDefinition = "tinyint default 1")
-    private Boolean isActive = true;
+  @TableField("is_active")
+  private Boolean isActive = true;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(updatable = false)
-    @CreationTimestamp
-    private Date createTime;
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
+  private Date createTime = new Date();
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @UpdateTimestamp
-    private Date updateTime;
+  @TableField(value = "update_time", update = "now()", fill = FieldFill.INSERT_UPDATE)
+  private Date updateTime = new Date();
 
-    @Version
-    private Integer version;
+  @TableField(update = "%s+1", fill = FieldFill.INSERT_UPDATE)
+  private Integer version = 0;
 
 }

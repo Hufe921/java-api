@@ -23,33 +23,33 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userService;
+  @Autowired
+  private UserServiceImpl userService;
 
-    @ApiOperation(value = "获取所有用户信息")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "非法访问"),
-            @ApiResponse(code = 422, message = "参数验证失败"),
-            @ApiResponse(code = 500, message = "内部服务错误")
-    })
-    @PostMapping("/v1/get")
-    @ResponseStatus(HttpStatus.OK)
-    public FrameResponse<List<UserShowVO>> findAll() {
-        CompletableFuture<List<UserShowVO>> result = userService.findAll();
-        return new FrameResponse<>(result.join());
-    }
+  @ApiOperation(value = "获取所有用户信息")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/get")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse<List<UserShowVO>> findAll() {
+    CompletableFuture<List<UserShowVO>> result = userService.findAll();
+    return new FrameResponse<>(result.join());
+  }
 
-    @ApiOperation(value = "获取用户所有订单信息")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "非法访问"),
-            @ApiResponse(code = 422, message = "参数验证失败"),
-            @ApiResponse(code = 500, message = "内部服务错误")
-    })
-    @PostMapping("/v1/order_list/get")
-    @ResponseStatus(HttpStatus.OK)
-    public FrameResponse<UserOrderShowVO> getOrderListByUserId(@RequestBody @Validated UserOrderGetAO inputAO) {
-        UserOrderShowVO result = userService.getOrderListByUserId(inputAO.getUserId());
-        return new FrameResponse<>(result);
-    }
+  @ApiOperation(value = "获取用户所有订单信息")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/order_list/get")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse<UserOrderShowVO> getOrderListByUserId(@RequestBody @Validated UserOrderGetAO inputAO) {
+    UserOrderShowVO result = userService.getOrderListByUserId(inputAO.getUserId());
+    return new FrameResponse<>(result);
+  }
 
 }

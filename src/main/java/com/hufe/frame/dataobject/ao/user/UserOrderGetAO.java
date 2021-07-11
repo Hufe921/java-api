@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class UserOrderGetAO {
 
-    @ApiModelProperty(value = "用户id", required = true)
-    @NotNull
-    private Long userId;
+  @ApiModelProperty(value = "用户id", required = true)
+  @NotNull
+  private Long userId;
 
 }

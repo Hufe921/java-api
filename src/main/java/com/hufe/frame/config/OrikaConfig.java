@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OrikaConfig {
 
-    @Bean
-    public MapperFactory getFactory() {
-        return new DefaultMapperFactory.Builder().build();
-    }
+  @Bean
+  public MapperFactory getFactory() {
+    return new DefaultMapperFactory.Builder().build();
+  }
 
 }

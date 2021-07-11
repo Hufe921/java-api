@@ -11,10 +11,10 @@ import java.util.List;
 @Builder
 public class UserAndOrderShowVO {
 
-    @ApiModelProperty(value = "用户列表")
-    List<UserShowVO> userShowList;
+  @ApiModelProperty(value = "用户列表")
+  List<UserShowVO> userShowList;
 
-    @ApiModelProperty(value = "订单列表")
-    List<OrderShowVO> orderShowList;
+  @ApiModelProperty(value = "订单列表")
+  List<OrderShowVO> orderShowList;
 
 }

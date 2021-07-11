@@ -1,12 +1,11 @@
 package com.hufe.frame.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
 @TableName("orders")
 @Builder
 @Data
@@ -16,15 +15,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class OrderEntity extends BaseEntity implements Serializable {
 
-    @Column(nullable = false)
-    private String name;
+  private String name;
 
-    @Enumerated
-    @Column(nullable = false)
-    private OrderState state;
+  private Integer state;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UserEntity user;
+  @TableField("user_id")
+  private Long userId;
 
 }

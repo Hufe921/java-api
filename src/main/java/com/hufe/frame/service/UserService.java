@@ -8,8 +8,8 @@ import java.util.concurrent.CompletableFuture;
 
 public interface UserService {
 
-    CompletableFuture<List<UserShowVO>> findAll();
+  CompletableFuture<List<UserShowVO>> findAll();
 
-    UserOrderShowVO getOrderListByUserId(Long id);
+  UserOrderShowVO getOrderListByUserId(Long id);
 
 }

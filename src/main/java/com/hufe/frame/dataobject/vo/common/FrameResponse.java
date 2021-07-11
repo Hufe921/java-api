@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FrameResponse<T> {
 
-    private T data = null;
+  private T data = null;
 
-    private String errorDetail = null;
+  private String errorDetail = null;
 
-    private Boolean success = true;
+  private Boolean success = true;
 
-    public FrameResponse(T data) {
-        this.data = data;
-    }
+  public FrameResponse(T data) {
+    this.data = data;
+  }
 }

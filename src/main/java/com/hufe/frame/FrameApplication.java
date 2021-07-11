@@ -15,22 +15,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @MapperScan("com.hufe.frame.mapper")
 public class FrameApplication implements WebMvcConfigurer {
 
-    public static void main(String[] args) {
-        // apollo配置
-        // System.setProperty("apollo.configService", "http://config-service-url:port");
-        SpringApplication.run(FrameApplication.class, args);
-        log.info("frame start on http://localhost:18080,version: " + CommonConstant.FRAME_VERSION);
-    }
+  public static void main(String[] args) {
+    // apollo配置
+    // System.setProperty("apollo.configService", "http://config-service-url:port");
+    SpringApplication.run(FrameApplication.class, args);
+    log.info("frame start on http://localhost:18080,version: " + CommonConstant.FRAME_VERSION);
+  }
 
-    @Bean
-    FrameInterceptor getFrameInterceptor(){
-        return new FrameInterceptor();
-    }
+  @Bean
+  FrameInterceptor getFrameInterceptor() {
+    return new FrameInterceptor();
+  }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getFrameInterceptor())
-                .addPathPatterns("/api/**");
-    }
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(getFrameInterceptor())
+            .addPathPatterns("/api/**");
+  }
 
 }

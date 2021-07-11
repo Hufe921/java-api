@@ -13,13 +13,13 @@ import java.util.List;
 @Builder
 public class UserOrderShowVO {
 
-    @ApiModelProperty(value = "用户id")
-    private Long id;
+  @ApiModelProperty(value = "用户id")
+  private Long id;
 
-    @ApiModelProperty(value = "姓名")
-    private String name;
+  @ApiModelProperty(value = "姓名")
+  private String name;
 
-    @ApiModelProperty(value = "订单列表")
-    private List<UserOrderDTO> userOrderDTOList;
+  @ApiModelProperty(value = "订单列表")
+  private List<UserOrderDTO> userOrderDTOList;
 
 }
