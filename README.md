@@ -5,9 +5,13 @@
 
 `mvn clean install -U & run frameApplication`
 
+## build
+
+`mvn clean package -Dmaven.test.skip=true`
+
 ## deploy
 
-`java -jar frame.jar >start.log &`
+`nohup java -jar frame.jar >start.log &`
 
 ## DevOps
 
