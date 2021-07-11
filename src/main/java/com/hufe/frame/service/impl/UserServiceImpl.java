@@ -1,6 +1,7 @@
 package com.hufe.frame.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hufe.frame.dataobject.dto.user.UserOrderDTO;
 import com.hufe.frame.dataobject.po.exception.FrameMessageException;
 import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
@@ -19,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
 
   @Autowired
   private MapperFactory mapperFactory;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
   public CompletableFuture<List<UserShowVO>> findAll() {
     QueryWrapper<UserEntity> qw = new QueryWrapper<>();
     qw.eq("is_active", true);
-    List<UserEntity> userEntities = userMapper.selectList(qw);
+    List<UserEntity> userEntities = this.list(qw);
     return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
             .mapAsList(userEntities, UserShowVO.class));
   }
