@@ -41,7 +41,6 @@ public class CommonController {
     public FrameResponse<UserAndOrderShowVO> asyncFindUserAndOrderAll() {
         CompletableFuture<List<UserShowVO>> userFuture = userService.findAll();
         CompletableFuture<List<OrderShowVO>> orderFuture = orderService.findAll();
-        CompletableFuture.allOf(userFuture, orderFuture).join();
         return new FrameResponse<>(UserAndOrderShowVO.builder()
                 .orderShowList(orderFuture.join())
                 .userShowList(userFuture.join())
