@@ -1,8 +1,8 @@
 package com.hufe.frame.service.impl;
 
-import com.hufe.frame.dataobject.dto.user.UserOrderDTO;
+import com.hufe.frame.dataobject.ao.user.UserAddAO;
+import com.hufe.frame.dataobject.ao.user.UserRelationShipAO;
 import com.hufe.frame.dataobject.po.exception.FrameMessageException;
-import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
 import com.hufe.frame.dataobject.vo.user.UserShowVO;
 import com.hufe.frame.model.UserEntity;
 import com.hufe.frame.repository.UserRepository;
@@ -10,47 +10,51 @@ import com.hufe.frame.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+import java.util.*;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private MapperFactory mapperFactory;
+  @Autowired
+  private MapperFactory mapperFactory;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    @Override
-    @Async("asyncExecutor")
-    public CompletableFuture<List<UserShowVO>> findAll() {
-        List<UserEntity> userEntities = userRepository.findAll();
-        return CompletableFuture.completedFuture(mapperFactory.getMapperFacade()
-                .mapAsList(userEntities, UserShowVO.class));
+  @Override
+  public void addUser(UserAddAO params) {
+    UserEntity sourceUser = UserEntity.builder()
+            .name(params.getName())
+            .gender(params.getGender())
+            .build();
+    userRepository.save(sourceUser);
+  }
+
+  @Override
+  public List<UserShowVO> getUser() {
+    List<UserEntity> userEntities = userRepository.findAll();
+    return mapperFactory
+            .getMapperFacade()
+            .mapAsList(userEntities, UserShowVO.class);
+  }
+
+  @Override
+  public void saveRelationShip(UserRelationShipAO params) {
+    Optional<UserEntity> source = userRepository.findById(params.getSourceId());
+    Optional<UserEntity> target = userRepository.findById(params.getTargetId());
+    if (!source.isPresent() || !target.isPresent()) {
+      throw new FrameMessageException("未找到节点");
     }
-
-    @Override
-    public UserOrderShowVO getOrderListByUserId(Long userId) {
-        // 判断用户是否存在
-        Optional<UserEntity> user = userRepository.findById(userId);
-        if (!user.isPresent()) {
-            throw new FrameMessageException("用户不存在");
-        }
-        List<UserOrderDTO> userOrderList = userRepository.getOrderListByUserId(userId);
-        if (!userOrderList.isEmpty()) {
-            return UserOrderShowVO.builder()
-                    .id(user.get().getId())
-                    .name(user.get().getName())
-                    .userOrderDTOList(userOrderList)
-                    .build();
-        }
-        return null;
+    UserEntity sourceUser = source.get();
+    if (sourceUser.getStakeholders() == null) {
+      sourceUser.setStakeholders(Collections.singletonList(target.get()));
+    } else {
+      sourceUser.getStakeholders().add(target.get());
     }
+    userRepository.save(sourceUser);
+  }
 
 }

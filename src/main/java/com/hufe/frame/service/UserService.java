@@ -1,15 +1,17 @@
 package com.hufe.frame.service;
 
-import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
+import com.hufe.frame.dataobject.ao.user.UserAddAO;
+import com.hufe.frame.dataobject.ao.user.UserRelationShipAO;
 import com.hufe.frame.dataobject.vo.user.UserShowVO;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public interface UserService {
 
-    CompletableFuture<List<UserShowVO>> findAll();
+    void addUser(UserAddAO params);
 
-    UserOrderShowVO getOrderListByUserId(Long id);
+    List<UserShowVO> getUser();
+
+    void saveRelationShip(UserRelationShipAO params);
 
 }

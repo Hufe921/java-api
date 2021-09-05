@@ -16,4 +16,7 @@ public class UserShowVO {
     @ApiModelProperty(value = "姓名")
     private String name;
 
+    @ApiModelProperty(value = "性别")
+    private Integer gender;
+
 }

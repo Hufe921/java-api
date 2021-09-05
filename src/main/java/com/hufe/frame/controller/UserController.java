@@ -1,8 +1,8 @@
 package com.hufe.frame.controller;
 
-import com.hufe.frame.dataobject.ao.user.UserOrderGetAO;
+import com.hufe.frame.dataobject.ao.user.UserAddAO;
+import com.hufe.frame.dataobject.ao.user.UserRelationShipAO;
 import com.hufe.frame.dataobject.vo.common.FrameResponse;
-import com.hufe.frame.dataobject.vo.user.UserOrderShowVO;
 import com.hufe.frame.dataobject.vo.user.UserShowVO;
 import com.hufe.frame.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Api(tags = "用户")
 @Validated
@@ -23,33 +22,46 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userService;
+  @Autowired
+  private UserServiceImpl userService;
 
-    @ApiOperation(value = "获取所有用户信息")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "非法访问"),
-            @ApiResponse(code = 422, message = "参数验证失败"),
-            @ApiResponse(code = 500, message = "内部服务错误")
-    })
-    @PostMapping("/v1/get")
-    @ResponseStatus(HttpStatus.OK)
-    public FrameResponse<List<UserShowVO>> findAll() {
-        CompletableFuture<List<UserShowVO>> result = userService.findAll();
-        return new FrameResponse<>(result.join());
-    }
+  @ApiOperation(value = "添加用户")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/add")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse addUser(@RequestBody @Validated UserAddAO inputAO) {
+    userService.addUser(inputAO);
+    return new FrameResponse();
+  }
 
-    @ApiOperation(value = "获取用户所有订单信息")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "非法访问"),
-            @ApiResponse(code = 422, message = "参数验证失败"),
-            @ApiResponse(code = 500, message = "内部服务错误")
-    })
-    @PostMapping("/v1/order_list/get")
-    @ResponseStatus(HttpStatus.OK)
-    public FrameResponse<UserOrderShowVO> getOrderListByUserId(@RequestBody @Validated UserOrderGetAO inputAO) {
-        UserOrderShowVO result = userService.getOrderListByUserId(inputAO.getUserId());
-        return new FrameResponse<>(result);
-    }
+  @ApiOperation(value = "查询用户")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/get")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse<List<UserShowVO>> getUser() {
+    List<UserShowVO> result = userService.getUser();
+    return new FrameResponse<>(result);
+  }
+
+  @ApiOperation(value = "新增用户关系")
+  @ApiResponses({
+          @ApiResponse(code = 401, message = "非法访问"),
+          @ApiResponse(code = 422, message = "参数验证失败"),
+          @ApiResponse(code = 500, message = "内部服务错误")
+  })
+  @PostMapping("/v1/relation_ship/save")
+  @ResponseStatus(HttpStatus.OK)
+  public FrameResponse saveRelationShip(@RequestBody @Validated UserRelationShipAO inputAO) {
+    userService.saveRelationShip(inputAO);
+    return new FrameResponse();
+  }
 
 }

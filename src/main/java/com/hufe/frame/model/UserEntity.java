@@ -1,27 +1,27 @@
 package com.hufe.frame.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.neo4j.core.schema.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-@Entity
-@Table(name = "users")
-@Builder
+@Node(labels = {"JA_USER"})
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserEntity extends BaseEntity implements Serializable {
+@Builder
+public class UserEntity {
 
-    @Column(nullable = false)
-    private String name;
+  @Id
+  @GeneratedValue
+  private Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date birthDate;
+  @Property(name = "name")
+  private String name;
+
+  @Property(name = "gender")
+  private Integer gender;
+
+  @Relationship(type = "RELATION_IN", direction = Relationship.Direction.INCOMING)
+  private List<UserEntity> stakeholders;
+
 }
